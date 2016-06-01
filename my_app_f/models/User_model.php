@@ -7,7 +7,16 @@ class User_model extends CI_Model {
     parent::__construct();
     $this->load->library('encrypt');
   }
-
+  public function create_user(){
+	$data = array('username'=>$this->input->post('username'),
+					'password'=>MD5($this->input->post('password')),
+					'nama'=>$this->input->post('nama'),
+					'email'=>$this->input->post('email'),
+					'ttl'=>$this->input->post('Tahun')."-".$this->input->post('Bulan')."-".$this->input->post('Hari') ,
+					'level'=>0
+					);
+	$this->db->insert('user',$data);
+  } 	
   public function login($user, $pass){
     
     $this->db->select('username, password, level, nama');
